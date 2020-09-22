@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html lang=en>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Light Control</title>
+    <link rel="stylesheet" href="style.css" />
+    <script>
+        let state = "off"
+        // let interval = 0.5
+        let colors = []
+
+        // https://stackoverflow.com/a/5624139
+        function hexToRgb(hex) {
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16),
+                hex
+            } : null;
+        }
+
+        function setLights() {
+            let interval = document.getElementById("interval").value
+            
+            colors = [...document.getElementById("colorList").children].map(c => hexToRgb(c.getElementsByTagName("input")[0].value))
+            console.log({ state, interval, colors })
+            fetch("/lights", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ state, interval, colors })
+            })
+        }
+
+
+        function addColor() {
+            let newColor = document.getElementById("newColor").value
+
+            let colorPicker = document.createElement("input")
+            colorPicker.setAttribute("type", "color")
+            colorPicker.value = newColor
+
+            let removeBtn = document.createElement("button")
+            removeBtn.innerText = "Remove"
+            removeBtn.onclick = () => colorItem.remove()
+
+            let colorItem = document.createElement("div")
+            colorItem.appendChild(colorPicker)
+            colorItem.appendChild(removeBtn)
+            colorItem.setAttribute("id", colors.length)
+
+            let colorList = document.getElementById("colorList")
+            colorList.appendChild(colorItem)
+        }
+    </script>
+</head>
+
+<body style="padding: 0 70px;">
+    <h1>Light Control</h1>
+    <label for="interval">Interval</label>
+    <input id="interval" type="range" min="0.05" max="1.5" step="0.05"/>
+    <p>
+        <h2>Style</h2>
+        <button class="state" onclick="state='static';setLights()">Static</button>
+        <button class="state" onclick="state='marquee';setLights()">Marquee</button>
+        <button class="state" onclick="state='fade';setLights()">Fade</button>
+        <button class="state" onclick="state='off';setLights()">Off</button>
+    </p>
+    <div id="colorList"> </div>
+    <input type="color" id="newColor" />
+    <button onclick="addColor()">Add</button>
+</body>
+
+</html>

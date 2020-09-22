@@ -68,7 +68,7 @@ mws2.NotFoundURL = '/'
 
 mws2.StartManaged()
 
-lights = Lights(pin=5, led_count=8)
+lights = Lights(pin=5, led_count=150)
 
 try :
     while mws2.IsRunning :

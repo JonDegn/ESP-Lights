@@ -83,8 +83,8 @@ class Lights():
                 time.sleep(self.interval / len(gradient))
 
     def rainbow(self):
-        r, g, b = 254, 0, 0
-        while r != 255:
+        r, g, b = 255, 0, 0
+        while True:
             if r > 0 and b == 0:
                 r -= 1
                 g += 1
@@ -96,6 +96,8 @@ class Lights():
                 b -= 1
             self.clear((r, g, b))
             time.sleep(self.interval / 10)
+            if r == 255:
+                break
 
 
 

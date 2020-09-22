@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="style.css" />
     <script>
         let state = "off"
-        // let interval = 0.5
         let colors = []
 
         // https://stackoverflow.com/a/5624139
@@ -23,7 +22,7 @@
         }
 
         function setLights() {
-            let interval = document.getElementById("interval").value
+            let interval = 1.55 - document.getElementById("interval").value
             
             colors = [...document.getElementById("colorList").children].map(c => hexToRgb(c.getElementsByTagName("input")[0].value))
             console.log({ state, interval, colors })
@@ -61,13 +60,14 @@
 
 <body style="padding: 0 70px;">
     <h1>Light Control</h1>
-    <label for="interval">Interval</label>
+    <label for="interval">Speed</label>
     <input id="interval" type="range" min="0.05" max="1.5" step="0.05"/>
     <p>
         <h2>Style</h2>
         <button class="state" onclick="state='static';setLights()">Static</button>
         <button class="state" onclick="state='marquee';setLights()">Marquee</button>
         <button class="state" onclick="state='fade';setLights()">Fade</button>
+        <button class="state" onclick="state='rainbow';setLights()">Rainbow</button>
         <button class="state" onclick="state='off';setLights()">Off</button>
     </p>
     <div id="colorList"> </div>

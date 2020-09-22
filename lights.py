@@ -5,6 +5,7 @@ OFF = 0
 STATIC = 1
 MARQUEE = 2
 FADE = 3
+RAINBOW = 4
 
 class Lights():
 
@@ -30,6 +31,9 @@ class Lights():
             return
         elif self.state == FADE:
             self.fade()
+            return
+        elif self.state == RAINBOW:
+            self.rainbow()
             return
         
     def clear(self, color=None):
@@ -72,11 +76,27 @@ class Lights():
 
             for g in reversed(gradient):
                 self.clear(g)
-                time.sleep(self.interval)
+                time.sleep(self.interval / len(gradient))
 
             for g in gradient:
                 self.clear(g)
-                time.sleep(self.interval)
+                time.sleep(self.interval / len(gradient))
+
+    def rainbow(self):
+        r, g, b = 254, 0, 0
+        while r != 255:
+            if r > 0 and b == 0:
+                r -= 1
+                g += 1
+            if g > 0 and r == 0:
+                g -= 1
+                b += 1
+            if b > 0 and g == 0:
+                r += 1
+                b -= 1
+            self.clear((r, g, b))
+            time.sleep(self.interval / 10)
+
 
 
 

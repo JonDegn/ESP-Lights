@@ -42,6 +42,8 @@ def RequestTestPost(microWebSrv2, request) :
             lights.state = MARQUEE
         elif state == 'fade':
             lights.state = FADE
+        elif state == 'rainbow':
+            lights.state = RAINBOW
         else:
             lights.state = OFF
         if colors:

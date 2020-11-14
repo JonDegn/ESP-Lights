@@ -48,8 +48,8 @@ class Lights():
         return tuple([int(c*factor) for c in color])
 
     def static(self):
+        time.sleep(5)
         if len(self.colors) == 0:
-            time.sleep(1)
             return
 
         for i in range(self.led_count):
@@ -98,8 +98,4 @@ class Lights():
             time.sleep(self.interval / 10)
             if r == 255:
                 break
-
-
-
-
 

@@ -53,9 +53,6 @@ def RequestTestPost(microWebSrv2, request) :
 
     request.Response.ReturnOk()
 
-print()
-
-
 
 mws2 = MicroWebSrv2()
 
